@@ -18,7 +18,8 @@ class GameManager {
     this.hintIndex      = 0;
     this.lastCommand    = '';
     this.allLearnedCmds = [];
-    this.completedLevels = new Set(); // indices of completed levels
+    this.completedLevels = new Set();
+    this.seenTheory     = new Set();
     this.objState = {};
     this.wrongToastTimer = null;
 
@@ -90,7 +91,13 @@ class GameManager {
       this.terminal.print('', 'out');
     }
 
-    this.terminal.focus();
+    // Show theory card on first visit to each level
+    if (THEORY[level.id] && !this.seenTheory.has(idx)) {
+      this.seenTheory.add(idx);
+      this._showTheory(level);
+    } else {
+      this.terminal.focus();
+    }
   }
 
   _renderInstructions(level) {
@@ -339,6 +346,34 @@ class GameManager {
 
   // ── Hints ──────────────────────────────────────────────────────────────────
 
+  _showTheory(level) {
+    const theory = THEORY[level.id];
+    document.getElementById('theory-subtitle').textContent = level.subtitle;
+    document.getElementById('theory-title').textContent = level.title;
+    document.getElementById('theory-body').innerHTML = theory;
+
+    const cmdEl = document.getElementById('theory-cmd');
+    const cmds = level.newCommands || [];
+    if (cmds.length > 0) {
+      cmdEl.innerHTML = cmds.map(cmd =>
+        `<div class="theory-cmd-item">
+          <span class="theory-cmd-name">${this._esc(cmd.name)}</span>
+          <span class="theory-cmd-desc">— ${this._esc(cmd.desc)}</span>
+        </div>`
+      ).join('');
+      cmdEl.style.display = '';
+    } else {
+      cmdEl.style.display = 'none';
+    }
+
+    document.getElementById('theory-overlay').style.display = 'flex';
+  }
+
+  _hideTheory() {
+    document.getElementById('theory-overlay').style.display = 'none';
+    this.terminal.focus();
+  }
+
   showHint() {
     const level = LEVELS[this.currentLevel];
     const hints = level.hints || [];
@@ -435,6 +470,10 @@ class GameManager {
   _bindUI() {
     document.getElementById('hint-btn').addEventListener('click', () => this.showHint());
     document.getElementById('wrong-toast-close').addEventListener('click', () => this._hideWrongToast());
+    document.getElementById('btn-theory-ok').addEventListener('click', () => this._hideTheory());
+    document.getElementById('theory-overlay').addEventListener('click', (e) => {
+      if (e.target === document.getElementById('theory-overlay')) this._hideTheory();
+    });
 
     document.getElementById('btn-next').addEventListener('click', () => {
       this.loadLevel(this.currentLevel + 1);
@@ -444,6 +483,7 @@ class GameManager {
       document.getElementById('victory-overlay').style.display = 'none';
       this.allLearnedCmds = [];
       this.completedLevels.clear();
+      this.seenTheory.clear();
       this.loadLevel(0);
     });
 
@@ -455,8 +495,13 @@ class GameManager {
       if (this.currentLevel < LEVELS.length - 1) this._navigateTo(this.currentLevel + 1);
     });
 
-    // Ctrl+Enter or Cmd+Enter advances to next level when level is complete
+    // Keyboard shortcuts
     document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        if (document.getElementById('theory-overlay').style.display === 'flex') {
+          this._hideTheory();
+        }
+      }
       const isCtrlOrCmd = e.ctrlKey || e.metaKey;
       if (isCtrlOrCmd && e.key === 'Enter') {
         const panel = document.getElementById('level-complete-panel');

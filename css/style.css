@@ -705,6 +705,98 @@ code {
   line-height: 1.6;
 }
 
+/* === Theory Card Modal === */
+.theory-modal {
+  max-width: 520px;
+  text-align: left;
+}
+
+.theory-tag {
+  display: inline-block;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+  color: var(--accent);
+  background: rgba(88,166,255,0.1);
+  border: 1px solid rgba(88,166,255,0.25);
+  border-radius: 999px;
+  padding: 2px 10px;
+  margin-bottom: 12px;
+}
+
+.theory-modal .modal-title,
+.theory-title {
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 12px;
+  text-align: left;
+}
+
+.theory-body {
+  font-size: 14px;
+  color: var(--text-dim);
+  line-height: 1.75;
+  margin-bottom: 16px;
+}
+
+.theory-body code {
+  font-family: var(--font-mono);
+  background: var(--bg3);
+  border: 1px solid var(--border);
+  border-radius: 3px;
+  padding: 1px 5px;
+  font-size: 12px;
+  color: var(--orange);
+}
+
+.theory-cmd {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-bottom: 20px;
+}
+
+.theory-cmd-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: var(--bg3);
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--cyan);
+  border-radius: var(--radius);
+  padding: 8px 12px;
+}
+
+.theory-cmd-name {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  color: var(--cyan);
+  white-space: nowrap;
+}
+
+.theory-cmd-desc {
+  font-size: 12px;
+  color: var(--text-dim);
+}
+
+.theory-skip {
+  font-size: 11px;
+  color: var(--text-dim);
+  margin-top: 10px;
+  text-align: center;
+}
+
+.theory-skip kbd {
+  font-family: var(--font-mono);
+  background: var(--bg3);
+  border: 1px solid var(--border);
+  border-radius: 3px;
+  padding: 1px 5px;
+  font-size: 10px;
+  color: var(--text-dim);
+}
+
 /* === Graph SVG styles === */
 .git-node {
   cursor: default;
