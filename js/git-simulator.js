@@ -17,7 +17,7 @@ class GitSimulator {
     this.stash         = [];
     this.mergeState    = null; // {branch, parent, hasConflict, conflictFiles}
     this.remotes       = {};  // {name: {url, refs, commits}}
-    this.user          = { name: 'Jogador', email: 'jogador@gitquest.com' };
+    this.user          = { name: 'Jogador', email: 'jogador@gitcafe.com' };
     this._hashCounter  = 0;
     this._history      = [];  // command history
   }
