@@ -809,6 +809,11 @@ code {
   color: var(--text-dim);
 }
 
+.theory-modal .btn-next {
+  display: block;
+  margin: 0 auto;
+}
+
 .theory-skip {
   font-size: 11px;
   color: var(--text-dim);
