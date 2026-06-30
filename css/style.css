@@ -431,8 +431,13 @@ code {
   flex-shrink: 0;
 }
 
+.hint-btn-row {
+  display: flex;
+  gap: 8px;
+}
+
 .hint-btn {
-  width: 100%;
+  flex: 0 0 30%;
   background: var(--bg3);
   border: 1px solid var(--border);
   border-radius: var(--radius);
@@ -442,11 +447,35 @@ code {
   cursor: pointer;
   transition: background 0.15s, border-color 0.15s;
   text-align: left;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .hint-btn:hover {
   background: var(--bg);
   border-color: var(--yellow);
+}
+
+.theory-replay-btn {
+  flex: 1;
+  background: var(--bg3);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  color: var(--blue);
+  font-size: 13px;
+  padding: 8px 12px;
+  cursor: pointer;
+  transition: background 0.15s, border-color 0.15s;
+  text-align: left;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.theory-replay-btn:hover {
+  background: var(--bg);
+  border-color: var(--blue);
 }
 
 .hint-text {

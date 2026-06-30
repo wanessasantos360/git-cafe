@@ -474,6 +474,9 @@ class GameManager {
     document.getElementById('theory-overlay').addEventListener('click', (e) => {
       if (e.target === document.getElementById('theory-overlay')) this._hideTheory();
     });
+    document.getElementById('theory-replay-btn').addEventListener('click', () => {
+      this._showTheory(LEVELS[this.currentLevel]);
+    });
 
     document.getElementById('btn-next').addEventListener('click', () => {
       this.loadLevel(this.currentLevel + 1);
